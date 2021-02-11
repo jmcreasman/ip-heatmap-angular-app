@@ -11,7 +11,7 @@ import { MapService } from './map.service'
 export class MapComponent implements AfterViewInit, OnInit {
 
   private map;
-  private marker;
+  circle;
   locations;
 
   private initMap(): void {
@@ -24,7 +24,7 @@ export class MapComponent implements AfterViewInit, OnInit {
     tiles.addTo(this.map);
 
     for (let i = 0; i < this.locations.length; i++) {
-      this.marker = new L.circle([this.locations[i][0], this.locations[i][1]], {
+      this.circle = new L.circle([this.locations[i].latitude, this.locations[i].longitude], {
         color: 'red',
         fillColor: '#f03',
         fillOpacity: 0.5,
