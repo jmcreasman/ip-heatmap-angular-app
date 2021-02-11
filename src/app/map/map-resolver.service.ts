@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { DataStorageService } from '../shared/data-storage.service';
 
 @Injectable({providedIn: 'root'})
-export class MapResolverService implements Resolve<void> {
+export class MapResolverService implements Resolve<any> {
   constructor(private dataStorageService: DataStorageService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
