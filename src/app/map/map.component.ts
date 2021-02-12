@@ -15,11 +15,12 @@ export class MapComponent implements AfterViewInit, OnInit {
   heatMapPoints;
 
   private initMap(): void {
-    this.map = L.map('map').setView([14.2844133, 102.2565852], 3);
+    this.map = L.map('map').setView([39.50, -98.35], 4);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      noWrap: true
     }).addTo(this.map);
 
     L.heatLayer(this.heatMapPoints, {
