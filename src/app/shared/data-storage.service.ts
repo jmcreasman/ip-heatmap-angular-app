@@ -15,7 +15,7 @@ export class DataStorageService {
   fetchLocations() {
     return this.http
       .get<Array<any>>(
-        'http://localhost:3000/iplocations'
+        'https://ip-heatmap-restful-api.herokuapp.com/iplocations'
       )
       .pipe(
         map(iplocations => {
