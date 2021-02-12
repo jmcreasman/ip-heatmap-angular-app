@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet.heat/dist/leaflet-heat.js'
 import { MapService } from './map.service'
-// import { Location } from '../models/location.model';
 
 @Component({
   selector: 'app-map',
@@ -12,7 +11,7 @@ import { MapService } from './map.service'
 export class MapComponent implements AfterViewInit, OnInit {
 
   private map;
-  heatMapPoints;
+  private heatMapPoints: number[];
 
   private initMap(): void {
     this.map = L.map('map').setView([39.50, -98.35], 4);

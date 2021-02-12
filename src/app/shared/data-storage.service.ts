@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
 import { MapService } from '../map/map.service';
+import { IGpsLocation } from '../interfaces/IGpsLocation';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -14,7 +15,7 @@ export class DataStorageService {
 
   fetchLocations() {
     return this.http
-      .get<Array<any>>(
+      .get<IGpsLocation[]>(
         'https://ip-heatmap-restful-api.herokuapp.com/iplocations'
       )
       .pipe(

@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MapService {
-  locations;
+  private locations: number[];
   constructor() {}
 
-  setLocations(locations) {
+  setLocations(locations: number[]) {
     this.locations = locations;
   }
 
