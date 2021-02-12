@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { IGpsLocation } from '../interfaces/IGpsLocation';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+import { throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -29,7 +30,11 @@ export class DataStorageService {
         }),
         tap(locations => {
           this.mapService.setLocations(locations);
-        })
+        }),
+        catchError(err => {
+          console.log(err.message, err.status);
+          return throwError(err);
+      })
       )
   }
 }
