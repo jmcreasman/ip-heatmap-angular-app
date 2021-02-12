@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { DataStorageService } from '../shared/data-storage.service';
+import { Injectable } from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class MapResolverService implements Resolve<number[]> {

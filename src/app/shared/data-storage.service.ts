@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
-
-import { MapService } from '../map/map.service';
 import { IGpsLocation } from '../interfaces/IGpsLocation';
+import { Injectable } from '@angular/core';
+import { map, tap } from 'rxjs/operators';
+import { MapService } from '../map/map.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
