@@ -13,16 +13,17 @@ export class DataStorageService {
     private mapService: MapService
   ) {}
 
-  fetchLocations() {
+  fetchLocations(minLon, maxLon) {
     return this.http
       .get<IGpsLocation[]>(
-        'https://ip-heatmap-restful-api.herokuapp.com/iplocations'
+        `https://ip-heatmap-restful-api.herokuapp.com/iplocations?minLon=${minLon}&maxLon=${maxLon}`
       )
       .pipe(
         map(iplocations => {
+          console.log(iplocations);
           let locations = [];
           iplocations.forEach(location => {
-            if (location.latitude && location.longitude) {
+            if (location.latitude !== null && location.longitude !== null) {
               locations.push([location.latitude, location.longitude]);
             }
           })

@@ -7,6 +7,6 @@ export class MapResolverService implements Resolve<number[]> {
   constructor(private dataStorageService: DataStorageService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.dataStorageService.fetchLocations();
+    return this.dataStorageService.fetchLocations(-180, -100);
   }
 }
