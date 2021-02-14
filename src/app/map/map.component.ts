@@ -40,7 +40,6 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.initMap();
     let numOfDegrees = 20;
     for(let i = -180; i < 180; i+=numOfDegrees) {
-      console.log(i);
       this.dataStorageService.fetchLocations(i, i+numOfDegrees-1).then((heatMapPoints) => {
         this.plotHeatMapPoints(heatMapPoints);
       });
