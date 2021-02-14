@@ -15,7 +15,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   constructor(private dataStorageService: DataStorageService) { }
 
   private initMap(): void {
-    this.map = L.map('map').setView([39.50, -98.35], 4);
+    this.map = L.map('map').setView([25, 0], 2);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -38,7 +38,7 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.initMap();
-    let numOfDegrees = 10;
+    let numOfDegrees = 20;
     for(let i = -180; i < 180; i+=numOfDegrees) {
       console.log(i);
       this.dataStorageService.fetchLocations(i, i+numOfDegrees-1).then((heatMapPoints) => {
