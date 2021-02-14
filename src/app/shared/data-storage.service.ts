@@ -13,7 +13,7 @@ export class DataStorageService {
 
   fetchLocations(minLon, maxLon) {
     let promise = new Promise<any>((resolve, reject) => {
-      let apiURL = `http://localhost:3000/iplocations?minLon=${minLon}&maxLon=${maxLon}`;
+      let apiURL = `https://ip-heatmap-restful-api.herokuapp.com/iplocations?minLon=${minLon}&maxLon=${maxLon}`;
       this.http.get<IGpsLocation[]>(apiURL)
       .pipe(
         map(iplocations => {
