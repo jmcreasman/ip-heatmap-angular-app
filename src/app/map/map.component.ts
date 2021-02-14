@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { DataStorageService } from '../shared/data-storage.service';
 import * as L from 'leaflet';
 import 'leaflet.heat/dist/leaflet-heat.js'
-import { MapService } from './map.service'
 
 @Component({
   selector: 'app-map',
@@ -11,7 +11,8 @@ import { MapService } from './map.service'
 export class MapComponent implements AfterViewInit, OnInit {
 
   private map;
-  private heatMapPoints: number[];
+
+  constructor(private dataStorageService: DataStorageService) { }
 
   private initMap(): void {
     this.map = L.map('map').setView([39.50, -98.35], 4);
@@ -21,22 +22,29 @@ export class MapComponent implements AfterViewInit, OnInit {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       noWrap: true
     }).addTo(this.map);
+  }
 
-    L.heatLayer(this.heatMapPoints, {
-      radius: 11,
+  private plotHeatMapPoints(heatMapPoints) {
+    L.heatLayer(heatMapPoints, {
+      radius: 8,
       minOpacity: 0.4,
       gradient: {0.4: 'blue', 0.5: 'lime', 0.6: 'red'}
     }).addTo(this.map);
   }
 
-  constructor(private mapService: MapService) { }
-
   ngOnInit() {
-    this.heatMapPoints = this.mapService.getLocations();
+
   }
 
   ngAfterViewInit() {
     this.initMap();
+    let numOfDegrees = 10;
+    for(let i = -180; i < 180; i+=numOfDegrees) {
+      console.log(i);
+      this.dataStorageService.fetchLocations(i, i+numOfDegrees-1).then((heatMapPoints) => {
+        this.plotHeatMapPoints(heatMapPoints);
+      });
+    }
   }
 
 }
