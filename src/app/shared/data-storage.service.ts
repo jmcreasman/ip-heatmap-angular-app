@@ -11,7 +11,7 @@ export class DataStorageService {
     private http: HttpClient,
   ) {}
 
-  fetchLocations(minLon, maxLon) {
+  fetchLocations(minLon: number, maxLon: number) {
     let promise = new Promise<any>((resolve, reject) => {
       let apiURL = `https://ip-heatmap-restful-api.herokuapp.com/iplocations?minLon=${minLon}&maxLon=${maxLon}`;
       this.http.get<IGpsLocation[]>(apiURL)
@@ -19,9 +19,7 @@ export class DataStorageService {
         map(iplocations => {
           let locations = [];
           iplocations.forEach(location => {
-            if (location.latitude !== null && location.longitude !== null) {
-              locations.push([location.latitude, location.longitude]);
-            }
+            locations.push([location.latitude, location.longitude]);
           })
           return locations;
         }),
@@ -33,10 +31,11 @@ export class DataStorageService {
       .toPromise()
       .then(
         locations => { // Success
-          console.log(locations);
           resolve(locations);
         }
-      );
+      ).catch(err => {
+        reject(err)
+      });
     });
     return promise;
   }

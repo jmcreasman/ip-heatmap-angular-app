@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { DataStorageService } from '../shared/data-storage.service';
 import * as L from 'leaflet';
 import 'leaflet.heat/dist/leaflet-heat.js'
@@ -8,7 +8,7 @@ import 'leaflet.heat/dist/leaflet-heat.js'
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit, OnInit {
+export class MapComponent implements AfterViewInit {
 
   private map;
 
@@ -24,7 +24,7 @@ export class MapComponent implements AfterViewInit, OnInit {
     }).addTo(this.map);
   }
 
-  private plotHeatMapPoints(heatMapPoints) {
+  private plotHeatMapPoints(heatMapPoints: number[]) {
     L.heatLayer(heatMapPoints, {
       radius: 8,
       minOpacity: 0.4,
@@ -32,16 +32,17 @@ export class MapComponent implements AfterViewInit, OnInit {
     }).addTo(this.map);
   }
 
-  ngOnInit() {
-
-  }
-
   ngAfterViewInit() {
     this.initMap();
-    let numOfDegrees = 20;
+
+    let numOfDegrees: number = 20;
     for(let i = -180; i < 180; i+=numOfDegrees) {
-      this.dataStorageService.fetchLocations(i, i+numOfDegrees-1).then((heatMapPoints) => {
+      this.dataStorageService.fetchLocations(i, i+numOfDegrees-1)
+      .then((heatMapPoints) => {
         this.plotHeatMapPoints(heatMapPoints);
+      })
+      .catch(err => {
+        console.log(err);
       });
     }
   }
