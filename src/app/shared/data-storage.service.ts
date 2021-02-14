@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { IGpsLocation } from '../interfaces/IGpsLocation';
 import { Injectable } from '@angular/core';
-import { map, tap, catchError } from 'rxjs/operators';
-import { MapService } from '../map/map.service';
+import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -10,17 +9,14 @@ export class DataStorageService {
 
   constructor(
     private http: HttpClient,
-    private mapService: MapService
   ) {}
 
   fetchLocations(minLon, maxLon) {
-    return this.http
-      .get<IGpsLocation[]>(
-        `https://ip-heatmap-restful-api.herokuapp.com/iplocations?minLon=${minLon}&maxLon=${maxLon}`
-      )
+    let promise = new Promise<any>((resolve, reject) => {
+      let apiURL = `http://localhost:3000/iplocations?minLon=${minLon}&maxLon=${maxLon}`;
+      this.http.get<IGpsLocation[]>(apiURL)
       .pipe(
         map(iplocations => {
-          console.log(iplocations);
           let locations = [];
           iplocations.forEach(location => {
             if (location.latitude !== null && location.longitude !== null) {
@@ -29,13 +25,19 @@ export class DataStorageService {
           })
           return locations;
         }),
-        tap(locations => {
-          this.mapService.setLocations(locations);
-        }),
         catchError(err => {
           console.log(err.message, err.status);
           return throwError(err);
-      })
+        })
       )
+      .toPromise()
+      .then(
+        locations => { // Success
+          console.log(locations);
+          resolve(locations);
+        }
+      );
+    });
+    return promise;
   }
 }
