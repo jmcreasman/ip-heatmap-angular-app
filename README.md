@@ -6,6 +6,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 A single-page JavaScript application to display geographic data to a user. Run `npm install` then `ng serve` to get started!
 
+[See Documentation](https://docs.google.com/document/d/1a5Q0zMXbE5fHH1i5C3YgHKBunH4dlDgXLwLndc8fTYc)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
