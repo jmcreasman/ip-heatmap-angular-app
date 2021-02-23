@@ -35,7 +35,7 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.initMap();
 
-    let numOfDegrees: number = 20;
+    let numOfDegrees: number = 10;
     for(let i = -180; i < 180; i+=numOfDegrees) {
       this.dataStorageService.fetchLocations(i, i+numOfDegrees-1)
       .then((heatMapPoints) => {
